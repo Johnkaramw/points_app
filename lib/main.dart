@@ -10,17 +10,25 @@ class PointApp extends StatefulWidget {
 }
 
 class _PointAppState extends State<PointApp> {
-  int tadrosPoints = 0;
-  int johnPoints = 0;
+  int player1Points = 0;
+  int player2Points = 0;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 200, 212, 226),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: const Color.fromARGB(255, 200, 212, 226),
+          ),
+        ),
+      ),
       home: Scaffold(
         backgroundColor: const Color.fromARGB(233, 217, 217, 255),
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 200, 212, 226),
           title: const Text(
             'Points Counter',
             style: TextStyle(
@@ -37,53 +45,67 @@ class _PointAppState extends State<PointApp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildPlayerColumn('John', tadrosPoints, () {
-                    setState(() {
-                      tadrosPoints++;
-                    });
-                  }, () {
-                    setState(() {
-                      tadrosPoints += 2;
-                    });
-                  }, () {
-                    setState(() {
-                      tadrosPoints += 3;
-                    });
-                  }, () {
-                    if (tadrosPoints >= 3) {
+                  PlayerColumn(
+                    playerName: 'Player 1',
+                    points: player1Points,
+                    onAddPoint: () {
                       setState(() {
-                        tadrosPoints--;
+                        player1Points++;
                       });
-                    }
-                  }),
+                    },
+                    onAddTwoPoints: () {
+                      setState(() {
+                        player1Points += 2;
+                      });
+                    },
+                    onAddThreePoints: () {
+                      setState(() {
+                        player1Points += 3;
+                      });
+                    },
+                    onRemovePoint: () {
+                      if (player1Points > 0) {
+                        setState(() {
+                          player1Points--;
+                        });
+                      }
+                    },
+                  ),
                   const SizedBox(width: 20),
-                  _buildPlayerColumn('Bavly', johnPoints, () {
-                    setState(() {
-                      johnPoints++;
-                    });
-                  }, () {
-                    setState(() {
-                      johnPoints += 2;
-                    });
-                  }, () {
-                    setState(() {
-                      johnPoints += 3;
-                    });
-                  }, () {
-                    if (johnPoints >= 3) {
+                  PlayerColumn(
+                    playerName: 'Player 2',
+                    points: player2Points,
+                    onAddPoint: () {
                       setState(() {
-                        johnPoints--;
+                        player2Points++;
                       });
-                    }
-                  }),
+                    },
+                    onAddTwoPoints: () {
+                      setState(() {
+                        player2Points += 2;
+                      });
+                    },
+                    onAddThreePoints: () {
+                      setState(() {
+                        player2Points += 3;
+                      });
+                    },
+                    onRemovePoint: () {
+                      if (player2Points > 0) {
+                        setState(() {
+                          player2Points--;
+                        });
+                      }
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    tadrosPoints = 0;
-                    johnPoints = 0;
+                    player1Points = 0;
+                    player2Points = 0;
                   });
                 },
                 child: const Text('Reset'),
@@ -94,14 +116,27 @@ class _PointAppState extends State<PointApp> {
       ),
     );
   }
+}
 
-  Widget _buildPlayerColumn(
-      String playerName,
-      int points,
-      VoidCallback onPressed1,
-      VoidCallback onPressed2,
-      VoidCallback onPressed3,
-      VoidCallback onPressedDecrement) {
+class PlayerColumn extends StatelessWidget {
+  final String playerName;
+  final int points;
+  final VoidCallback onAddPoint;
+  final VoidCallback onAddTwoPoints;
+  final VoidCallback onAddThreePoints;
+  final VoidCallback onRemovePoint;
+
+  const PlayerColumn({
+    required this.playerName,
+    required this.points,
+    required this.onAddPoint,
+    required this.onAddTwoPoints,
+    required this.onAddThreePoints,
+    required this.onRemovePoint,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
@@ -115,22 +150,22 @@ class _PointAppState extends State<PointApp> {
           ),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: onPressed1,
+            onPressed: onAddPoint,
             child: const Text('Add Point'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: onPressed2,
+            onPressed: onAddTwoPoints,
             child: const Text('Add 2 Points'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: onPressed3,
+            onPressed: onAddThreePoints,
             child: const Text('Add 3 Points'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: onPressedDecrement,
+            onPressed: onRemovePoint,
             child: const Text('Remove 1 Point'),
           ),
         ],
