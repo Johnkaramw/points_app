@@ -5,11 +5,10 @@ import 'package:points_app/cupit/cupit_stat.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  int player1Points = 0;
-  int player2Points = 0;
+  
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(builder: (context, State) {
+    return BlocConsumer<CunteCupit, CunterStat>(builder: (context, State) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
@@ -27,14 +26,14 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Text(
-                        'Team 1',
+                        'Team A',
                         style: TextStyle(
                           fontSize: 32,
                         ),
                       ),
-                      const Text(
-                        '0',
-                        style: TextStyle(
+                      Text(
+                        '${BlocProvider.of<CunteCupit>(context).player1Points}',
+                        style: const TextStyle(
                           fontSize: 150,
                         ),
                       ),
@@ -44,7 +43,10 @@ class HomePage extends StatelessWidget {
                           iconColor: Colors.orange,
                           minimumSize: const Size(150, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CunteCupit>(context).playercunterteam(
+                              Tame: 'A', Numberpointbotton: 1);
+                        },
                         child: const Text(
                           'Add 1 Point ',
                           style: TextStyle(
@@ -58,7 +60,10 @@ class HomePage extends StatelessWidget {
                           iconColor: Colors.orange,
                           minimumSize: const Size(150, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CunteCupit>(context).playercunterteam(
+                              Tame: 'A', Numberpointbotton: 2);
+                        },
                         child: const Text(
                           'Add 2 Point',
                           style: TextStyle(
@@ -72,7 +77,10 @@ class HomePage extends StatelessWidget {
                           iconColor: Colors.orange,
                           minimumSize: const Size(150, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CunteCupit>(context).playercunterteam(
+                              Tame: 'A', Numberpointbotton: 3);
+                        },
                         child: const Text(
                           'Add 3 Point ',
                           style: TextStyle(
@@ -104,9 +112,9 @@ class HomePage extends StatelessWidget {
                           fontSize: 32,
                         ),
                       ),
-                      const Text(
-                        '0',
-                        style: TextStyle(
+                      Text(
+                        '${BlocProvider.of<CunteCupit>(context).player2Points}',
+                        style: const TextStyle(
                           fontSize: 150,
                         ),
                       ),
@@ -116,7 +124,10 @@ class HomePage extends StatelessWidget {
                           iconColor: Colors.orange,
                           minimumSize: const Size(150, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CunteCupit>(context).playercunterteam(
+                              Tame: 'B', Numberpointbotton: 1);
+                        },
                         child: const Text(
                           'Add 1 Point ',
                           style: TextStyle(
@@ -130,7 +141,10 @@ class HomePage extends StatelessWidget {
                           iconColor: Colors.orange,
                           minimumSize: const Size(150, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CunteCupit>(context).playercunterteam(
+                              Tame: 'B', Numberpointbotton: 2);
+                        },
                         child: const Text(
                           'Add 2 Point ',
                           style: TextStyle(
@@ -144,7 +158,10 @@ class HomePage extends StatelessWidget {
                           iconColor: Colors.orange,
                           minimumSize: const Size(150, 50),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          BlocProvider.of<CunteCupit>(context).playercunterteam(
+                              Tame: 'B', Numberpointbotton: 3);
+                        },
                         child: const Text(
                           'Add 3 Point ',
                           style: TextStyle(
@@ -177,11 +194,7 @@ class HomePage extends StatelessWidget {
         ),
       );
     }, listener: (context, State) {
-      if (State is CunterStat1) {
-        player1Points = BlocProvider.of<CunterCupitStat>(context).player1Points;
-      } else {
-        player2Points = BlocProvider.of<CunterCupitStat>(context).player2Points;
-      }
+     
     });
   }
 }

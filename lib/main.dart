@@ -15,7 +15,7 @@ class _pointsCounterState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(
-      create: (context)=> CunterCupitStat(),
+      create: (context)=> CunteCupit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),
